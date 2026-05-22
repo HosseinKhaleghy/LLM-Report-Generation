@@ -75,51 +75,119 @@ Editing or extending `knowledge/dairy_energy_kb.md` is enough to improve the adv
 
 ## Installation
 
-The project uses a dedicated virtual environment (`.venv`, Python 3.11):
+Tested on Python 3.11. You also need around 15 GB of free disk space for the Ollama model and the MOMENT weights, and at least 12 GB of RAM to run `qwen2.5:14b` comfortably.
+
+### 1. Clone the repository
 
 ```bash
-python3.11 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+git clone https://github.com/HosseinKhaleghy/LLM-Report-Generation.git
+cd LLM-Report-Generation
 ```
 
-For **LLM generated** narratives, install Ollama and pull the model (`qwen2.5:14b`, 4 bit quantised, around 9 GB):
+### 2. Create the Python environment
+
+**Linux (Ubuntu or Debian based):**
 
 ```bash
-brew install ollama          # or download from https://ollama.com
+sudo apt update
+sudo apt install python3.11 python3.11-venv git
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**macOS:**
+
+```bash
+brew install python@3.11 git
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Windows (PowerShell):**
+
+Install Python 3.11 from https://www.python.org/downloads/ (tick "Add python.exe to PATH" during setup) and Git from https://git-scm.com/download/win. Then open PowerShell in the project folder:
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+If PowerShell refuses to run the activation script, allow user scripts once:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+Alternatively use Command Prompt instead of PowerShell and activate with `.venv\Scripts\activate.bat`.
+
+### 3. Install Ollama and pull the model
+
+The narrative generator calls a local LLM through Ollama. The default model is `qwen2.5:14b` (4 bit quantised, around 9 GB on disk).
+
+**Linux:**
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull qwen2.5:14b
+```
+
+The install script registers Ollama as a system service that starts on boot.
+
+**macOS:**
+
+```bash
+brew install ollama
 brew services start ollama
 ollama pull qwen2.5:14b
 ```
 
-Any other Ollama model can be used by setting `DEFAULT_OLLAMA_MODEL` in `src/llm_report.py` (for example a smaller one if RAM is tight).
+**Windows:**
+
+Download and run the installer from https://ollama.com/download/windows. Ollama runs as a background service after install. Then, in any terminal:
+
+```powershell
+ollama pull qwen2.5:14b
+```
+
+If RAM is tight, set `DEFAULT_OLLAMA_MODEL` in `src/llm_report.py` to a smaller model such as `qwen2.5:7b` (around 4.7 GB) and run `ollama pull qwen2.5:7b`.
 
 ## Usage
 
-All commands use the virtual environment interpreter (`.venv/bin/python`).
+Activate the virtual environment first:
+
+- Linux or macOS: `source .venv/bin/activate`
+- Windows PowerShell: `.venv\Scripts\Activate.ps1`
+- Windows Command Prompt: `.venv\Scripts\activate.bat`
+
+Then run any of the following with plain `python`:
 
 **1. Train the herd size model:**
 
 ```bash
-.venv/bin/python -m src.train
+python -m src.train
 ```
 
 **2. Build the sample input file** (real WP3 farm data):
 
 ```bash
-.venv/bin/python make_sample_data.py
+python make_sample_data.py
 ```
 
 **3. Launch the demo interface:**
 
 ```bash
-.venv/bin/python -m streamlit run app.py
+python -m streamlit run app.py
 ```
 
-Upload a farm CSV (or pick the bundled sample) and click **Analyse farm**.
+The app opens at http://localhost:8501. The pre cached `hourly.csv` farm loads instantly so you can browse the dashboard without waiting for the pipeline. Upload your own CSV to override the demo and run the full pipeline.
 
 **4. Command line:**
 
 ```bash
-.venv/bin/python -m src.pipeline sample_farm.csv --llm ollama
+python -m src.pipeline sample_farm.csv --llm ollama
 ```
 
 ## LLM backend
