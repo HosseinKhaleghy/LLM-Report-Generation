@@ -1,0 +1,98 @@
+[
+  {
+    "section": "Overview",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: Benchmarks and percentages cited are consistent with KB TOPICS.\nD3: 5\nD3_note: Reasoning about baseline inefficiency and anomalies is sound.\nOVERALL: 5\nVERDICT: Perfectly grounded, no hallucinations, physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "Benchmarks and percentages cited are consistent with KB TOPICS.",
+    "D3_note": "Reasoning about baseline inefficiency and anomalies is sound.",
+    "VERDICT": "Perfectly grounded, no hallucinations, physically sound."
+  },
+  {
+    "section": "Herd size",
+    "raw": "D1: 5\nD1_note: All cited herd size values are directly traceable from FARM DATA.\nD2: 5\nD2_note: No benchmarks cited beyond the herd size estimate.\nD3: 5\nD3_note: Herd size discussion is neutral and does not involve physical reasoning.\nOVERALL: 5\nVERDICT: Perfectly factual, no benchmarks cited, herd size discussion sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All cited herd size values are directly traceable from FARM DATA.",
+    "D2_note": "No benchmarks cited beyond the herd size estimate.",
+    "D3_note": "Herd size discussion is neutral and does not involve physical reasoning.",
+    "VERDICT": "Perfectly factual, no benchmarks cited, herd size discussion sound."
+  },
+  {
+    "section": "Electricity consumption",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: The cited healthy baseline range of 10-15% matches KB TOPICS.\nD3: 5\nD3_note: The reasoning about elevated baseline load and associated costs is physically sound.\nOVERALL: 5\nVERDICT: Perfectly factual, benchmarked, and physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "The cited healthy baseline range of 10-15% matches KB TOPICS.",
+    "D3_note": "The reasoning about elevated baseline load and associated costs is physically sound.",
+    "VERDICT": "Perfectly factual, benchmarked, and physically sound."
+  },
+  {
+    "section": "Hourly analysis",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: Benchmarks cited align with KB TOPICS on dairy electricity use and seasonal patterns.\nD3: 5\nD3_note: Reasoning correctly matches Irish dairy farm reality regarding daily and seasonal energy use patterns.\nOVERALL: 5\nVERDICT: Perfectly grounded, no hallucinations, physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "Benchmarks cited align with KB TOPICS on dairy electricity use and seasonal patterns.",
+    "D3_note": "Reasoning correctly matches Irish dairy farm reality regarding daily and seasonal energy use patterns.",
+    "VERDICT": "Perfectly grounded, no hallucinations, physically sound."
+  },
+  {
+    "section": "Monthly analysis",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: The reasoning aligns with KB TOPICS on seasonal consumption patterns and water heating.\nD3: 5\nD3_note: Correctly identifies higher winter consumption due to heating and lower summer consumption due to reduced heating needs.\nOVERALL: 5\nVERDICT: Perfectly factual, benchmark-intact, and physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "The reasoning aligns with KB TOPICS on seasonal consumption patterns and water heating.",
+    "D3_note": "Correctly identifies higher winter consumption due to heating and lower summer consumption due to reduced heating needs.",
+    "VERDICT": "Perfectly factual, benchmark-intact, and physically sound."
+  },
+  {
+    "section": "Seasonal analysis",
+    "raw": "D1: 5\nD1_note: All values cited in the section are directly traceable to FARM DATA.\nD2: 5\nD2_note: The analysis correctly reflects the seasonal consumption pattern without citing any benchmarks.\nD3: 5\nD3_note: The reasoning correctly aligns with the physical reality of dairy farm energy use, considering heating and cooling demands.\nOVERALL: 5\nVERDICT: Perfectly factual, physically sound, and benchmark-free.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All values cited in the section are directly traceable to FARM DATA.",
+    "D2_note": "The analysis correctly reflects the seasonal consumption pattern without citing any benchmarks.",
+    "D3_note": "The reasoning correctly aligns with the physical reality of dairy farm energy use, considering heating and cooling demands.",
+    "VERDICT": "Perfectly factual, physically sound, and benchmark-free."
+  },
+  {
+    "section": "Anomalies",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: Benchmarks and reasoning align with KB TOPICS on seasonal consumption and fault signatures.\nD3: 5\nD3_note: Correctly identifies high-consumption anomalies with increased cooling needs and low-consumption anomaly as potential equipment failure.\nOVERALL: 5\nVERDICT: Perfectly factual, benchmarked, and physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "Benchmarks and reasoning align with KB TOPICS on seasonal consumption and fault signatures.",
+    "D3_note": "Correctly identifies high-consumption anomalies with increased cooling needs and low-consumption anomaly as potential equipment failure.",
+    "VERDICT": "Perfectly factual, benchmarked, and physically sound."
+  },
+  {
+    "section": "Recommendations",
+    "raw": "D1: 5\nD1_note: All numeric values cited are directly traceable to FARM DATA.\nD2: 5\nD2_note: All benchmarks cited match KB TOPICS.\nD3: 5\nD3_note: Reasoning aligns with dairy farm physical realities and seasonal patterns.\nOVERALL: 5\nVERDICT: Perfectly grounded, benchmarked, and physically sound.",
+    "D1": 5,
+    "D2": 5,
+    "D3": 5,
+    "OVERALL": 5,
+    "D1_note": "All numeric values cited are directly traceable to FARM DATA.",
+    "D2_note": "All benchmarks cited match KB TOPICS.",
+    "D3_note": "Reasoning aligns with dairy farm physical realities and seasonal patterns.",
+    "VERDICT": "Perfectly grounded, benchmarked, and physically sound."
+  }
+]

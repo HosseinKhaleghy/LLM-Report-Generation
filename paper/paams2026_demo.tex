@@ -1,0 +1,352 @@
+% PAAMS 2026 Demonstration Paper
+% Template: LNCS/LNAI (Springer)
+% Max 6 pages
+
+\documentclass[runningheads]{llncs}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{url}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+
+\begin{document}
+
+\title{A Multi-Agent Decision-Support System for Dairy Farm Energy Efficiency}
+
+\titlerunning{Multi-Agent Dairy Farm Energy Advisor}
+
+\author{%
+  \and
+}
+
+\authorrunning{}
+
+\institute{%
+}
+
+\maketitle
+
+\begin{abstract}
+We present a multi-agent decision-support system that transforms a raw hourly
+electricity export from a dairy farm into a structured energy report and a
+plain-language advisory note, without requiring any domain expertise from the
+operator. A coordinator agent orchestrates six specialised task agents, each
+with autonomous trigger conditions and an independent decision policy, covering
+data ingestion and cleaning, herd-size estimation, statistical energy
+characterisation, zero-shot anomaly detection using the MOMENT-1-large
+foundation model, knowledge retrieval via a curated dairy energy knowledge
+base, and narrative generation using a locally deployed large language model.
+The demonstration shows the full pipeline through an interactive web
+application: the operator uploads a CSV file and receives, progressively, a
+herd-size estimate, an annotated energy dashboard, an anomaly timeline, and a
+farm-specific advisory report. A preliminary evaluation with five agricultural
+energy professionals confirmed the reports to be factually grounded and
+immediately actionable without specialist training.
+\end{abstract}
+
+\keywords{Multi-agent systems \and Energy efficiency \and Dairy farming \and
+Foundation models \and Retrieval-augmented generation \and Anomaly detection}
+
+% ============================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================
+
+Dairy farming is one of the most energy-intensive segments of agriculture.
+Milking equipment, bulk-tank refrigeration, hot-water systems for plant
+washing, ventilation, and lighting together consume on the order of 300 to
+600 kWh per cow per year~\cite{Upton2015}. With electricity prices in Ireland
+and across Europe frequently exceeding 0.30 EUR per kWh, energy represents a
+significant and growing share of operational costs. Despite this, most farm
+operators receive only a monthly aggregated electricity bill, with no
+indication of where the load originates, whether consumption is within a
+healthy range for their herd size, or when equipment has malfunctioned.
+
+Agent-based models have been applied to simulate the electricity consumption
+patterns of Irish dairy farms, capturing how herd size, milking schedules, and
+seasonal conditions interact to produce the farm's overall load
+profile~\cite{Khaleghy2026}. This body of work provides both validated
+synthetic consumption profiles and per-cow energy benchmarks grounded in real
+farm operation. However, the outputs of such models have not yet been
+integrated into an end-to-end advisory tool that an operator can use directly.
+
+Existing advisory tools either require on-site sub-metering hardware or depend
+on manual interpretation by an energy consultant. Automated approaches have
+been explored for anomaly detection in energy systems~\cite{Cook2019} and for
+retrieval-augmented generation in knowledge-intensive domains~\cite{Lewis2020},
+but the combination of consumption-based herd-size estimation, zero-shot
+foundation-model anomaly detection, and local LLM narrative generation has not
+been demonstrated in an agricultural advisory context.
+
+This paper presents a system that addresses this gap. A coordinator agent
+delegates tasks across six specialised agents, requiring only a single
+commodity input, namely an hourly electricity CSV export, to produce actionable
+advice a non-expert operator can act on directly.
+
+% ============================================================
+\section{Main Purpose}
+\label{sec:purpose}
+% ============================================================
+
+The system asks: given only a farm's hourly electricity consumption time
+series, what energy-efficiency advice can be derived automatically and
+communicated in accessible, farm-specific language? To answer this, it pursues
+four goals. First, it estimates herd size from the consumption pattern alone,
+so that energy use can be contextualised per cow against industry benchmarks.
+Second, it characterises energy use across hourly, monthly, and seasonal
+dimensions to expose the baseline idle load and the peak operating hours.
+Third, it detects anomalous hours without any labelled training data, surfacing
+equipment faults automatically. Fourth, it generates a plain-language advisory
+grounded in a curated knowledge base, tailored to the specific figures of each
+farm.
+
+\subsection{Multi-Agent Architecture}
+
+The pipeline is implemented in Python and exposed through a Streamlit web
+interface. A coordinator agent sits at the top of the hierarchy: it receives
+the uploaded CSV, delegates tasks to six specialised agents, accumulates their
+outputs into a shared JSON report object, monitors execution status, and
+applies fallback strategies on failure (Fig.~\ref{fig:arch}). Each task agent
+owns its local reasoning process, maintains an independent decision policy, and
+fires autonomously when its designated input is ready. Because all inter-agent
+communication passes through the shared JSON object, any agent is
+asynchronously replaceable without modifying the others.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.90\textwidth]{fig1.pdf}
+  \caption{Sequential multi-agent pipeline for the dairy farm energy advisor.
+    The coordinator agent oversees execution and delegates tasks to six
+    specialist agents. Each agent enriches the shared JSON report object and
+    passes it to the next. The RAG agent retrieves knowledge from the curated
+    dairy energy knowledge base to support the LLM narrative agent.}
+  \label{fig:arch}
+\end{figure}
+
+The data agent validates the uploaded file, infers measurement units, fills
+short gaps by linear interpolation, and hands a clean hourly series to the
+coordinator.
+
+The herd-size estimation agent derives the number of dairy cows from the
+consumption pattern using an ensemble of models trained on synthetic farm
+profiles generated by the agent-based electricity consumption model
+in~\cite{Khaleghy2026}. When the farm's profile falls outside the training
+distribution, the agent detects this autonomously and switches to a
+consumption-based benchmark strategy, anchoring its estimate in physical
+reality and providing a plausible range.
+
+The energy analysis agent computes descriptive statistics at hourly, monthly,
+and seasonal granularity, including the baseline idle load, its share of mean
+hourly consumption, the annual idle-load cost, and the peak and off-peak hours
+of the day. All derived figures are pre-computed here so that the narrative
+agent downstream never performs arithmetic.
+
+The anomaly detection agent uses the MOMENT-1-large foundation
+model~\cite{Goswami2024} in reconstruction mode to identify anomalous hours
+without any farm-specific training. It slides overlapping windows across the
+series, derives its own flagging threshold from the farm's empirical residual
+distribution with no external supervision, and classifies each flagged hour
+as a high-consumption or low-consumption event.
+
+The retrieval-augmented generation (RAG) agent maintains a curated dairy
+energy knowledge base covering per-cow benchmarks, baseline-load health ranges,
+efficiency measures, anomaly heuristics, and seasonal load drivers. At
+report-generation time it embeds each section's data payload using the
+all-MiniLM-L6-v2 sentence encoder~\cite{Wang2020} and retrieves the most
+relevant passages for injection into the LLM prompt.
+
+The LLM narrative agent generates a section-by-section advisory using a
+locally deployed qwen2.5:14b model served via Ollama~\cite{Qwen2024}. Each
+section receives only the data fields relevant to it, preventing cross-section
+figure contamination. Strict prompt constraints require the model to cite only
+benchmarks from the retrieved guidance, quote pre-computed figures verbatim,
+and explain seasonal drivers using only knowledge-base-grounded reasoning. The
+system operates entirely on CPU, requiring no specialist GPU infrastructure.
+
+\subsection{Multi-Agent Design Properties}
+
+The architecture satisfies several defining properties of a multi-agent system.
+Each task agent encapsulates independent local reasoning: the anomaly-detection
+agent, for example, derives its flagging threshold from the farm's own residual
+distribution rather than accepting a globally fixed value. Agents maintain
+independent decision policies; the herd-estimation agent switches estimation
+strategy autonomously when its training-distribution assumption is violated,
+without any instruction from the coordinator. Each agent has an autonomous
+trigger condition tied to data readiness, and the coordinator monitors
+completion status to gate each subsequent delegation. The loose coupling
+through the shared JSON object guarantees asynchronous replaceability: any
+agent can be swapped for a higher-capability successor without modifying the
+rest of the pipeline.
+
+% ============================================================
+\section{Demonstration}
+\label{sec:demo}
+% ============================================================
+
+The demonstration runs through an interactive Streamlit web application.
+Attendees may upload their own real hourly electricity CSV file or use a
+preloaded benchmark dataset representing a real Irish dairy farm. The
+coordinator initiates the pipeline immediately on upload, and observers can
+follow each agent's output as it arrives, inspect intermediate results across
+tabs, compare anomaly explanations, and download the generated advisory report.
+The experiential goal is to show how a multi-agent system decomposes an
+advisory task that no single model can handle reliably into a sequence of
+focused, auditable agent outputs.
+
+\subsection{Interface and Interaction Flow}
+
+The interface presents six tabs that populate progressively as each task agent
+completes. The Overview tab shows the herd-size estimate with plausible range
+and KPI cards for total consumption, baseline share, and estimated annual cost.
+The Hourly tab shows mean consumption by hour of day with peak and off-peak
+hours highlighted. The Monthly tab presents a consumption heatmap with KPI
+cards for the highest and lowest month and the energy swing between them. The
+Seasonal tab compares the four seasons by total and mean hourly consumption.
+The Anomalies tab shows a timeline of flagged hours coloured by direction,
+a table of the largest deviations, and a plain-language severity assessment.
+The Advisory tab renders the LLM narrative as structured Markdown and provides
+a one-click download button.
+
+The herd-size estimate and full energy dashboard appear within seconds of
+upload, as model weights are pre-loaded at application startup. Anomaly
+detection completes in approximately 60 to 120 seconds on CPU, after which
+the Anomalies tab becomes interactive. LLM generation takes approximately 3
+to 5 minutes on CPU and renders section by section as each completes, giving
+attendees time to explore the energy and anomaly tabs while the advisory
+produces. A preloaded farm example ensures the demonstration can begin
+immediately without any upload delay.
+
+\subsection{Example Output}
+
+Figure~\ref{fig:screenshot} shows the application running on a real Irish
+dairy farm dataset with 8521 hours of recorded consumption. The pipeline
+estimated a herd of 164 cows (plausible range 115 to 192), a total annual
+consumption of 57505.9 kWh (17251.78 EUR at the farm's tariff), and a
+baseline idle load of 4679.4 Wh representing 69.3\% of mean hourly
+consumption, at an annual idle-load cost of 12297.46 EUR. The anomaly
+detection agent flagged 43 hours (0.5\%), with 16 classified as
+high-consumption and 27 as low-consumption events.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{fig_screenshot.png}
+  \caption{The application running on a real dairy farm dataset. The Overview
+    tab (shown) displays the herd-size estimate, KPI cards for consumption
+    and cost, and the hour-of-day load profile. The remaining tabs provide
+    monthly and seasonal breakdowns, an anomaly timeline, and the full LLM
+    advisory.}
+  \label{fig:screenshot}
+\end{figure}
+
+\subsection{Preliminary Usability Evaluation}
+
+A preliminary evaluation was conducted with five agricultural energy
+professionals who each interacted with the system using an anonymised real farm
+dataset. Participants ran the full pipeline without assistance and then assessed
+the clarity, accuracy, and practical relevance of the generated report. All
+five confirmed that the advisory contained no fabricated figures and that every
+recommendation was grounded in a data value they could verify in the
+dashboard. Four out of five rated the herd-size estimate as plausible given
+their knowledge of the farm context. All five identified at least one
+maintenance action from the anomaly timeline that they would prioritise for
+investigation. The most consistent observation was that the progressive
+rendering model made the pipeline wait feel productive: participants engaged
+with the energy and anomaly tabs while the advisory generated, and none
+reported the total interaction time as excessive.
+
+To complement the human evaluation, an automated LLM-as-judge protocol was
+applied to reports generated for five real dairy farms (farms 2, 4, 5, 6,
+and 7 from the dataset). A locally deployed qwen2.5:14b judge model scored
+each of the eight report sections on three dimensions: factual grounding
+(D1, whether every cited figure is traceable to the farm data), benchmark
+integrity (D2, whether all cited thresholds are attributable to the
+knowledge base), and physical soundness (D3, whether causal reasoning
+matches Irish dairy farm reality). Across all 40 section-level judgements
+(five farms, eight sections each), mean scores were D1\,=\,5.00,
+D2\,=\,4.63, D3\,=\,4.85, and overall\,=\,4.70 on a 1--5 scale.
+Factual grounding was perfect across all farms; the modest D2 variance
+reflects isolated instances where the model cited a benchmark range that
+the judge could not directly map to a retrieved knowledge-base passage.
+Because the narrative generator and the judge are drawn from the same
+qwen2.5 model family, these figures should be interpreted as an
+optimistic upper bound, and an independent judge from a different model
+family would likely score the physical-soundness dimension more
+critically.
+
+% ============================================================
+\section{Conclusions}
+\label{sec:conclusions}
+% ============================================================
+
+We have demonstrated a multi-agent pipeline in which a coordinator agent
+delegates tasks across six specialised agents, each with autonomous trigger
+conditions, local reasoning, and an independent decision policy, to transform
+a single hourly electricity CSV into a farm-specific energy advisory. The
+system operates without labelled anomaly data, without domain expertise from
+the operator, and without cloud GPU resources. Three design choices proved
+critical for output quality: pre-computing all derived figures in the energy
+analysis agent so that the LLM narrative agent never performs arithmetic;
+narrowing the JSON payload for each LLM section to only the relevant fields;
+and grounding the narrative in a curated knowledge base through the RAG agent.
+Together these choices substantially reduce hallucination and improve factual
+fidelity in the advisory text.
+
+The demonstration illustrates how specialised agents, each handling a task
+that no single model performs well in isolation, can collectively approximate
+the output of a human energy consultant at a fraction of the cost and response
+time. A preliminary evaluation with five domain experts confirmed the practical
+utility of the output, and an automated LLM-as-judge assessment across five
+real farms yielded a mean overall score of 4.70 out of 5, with perfect
+factual grounding (5.00) across all farms. Future work will explore fine-tuning the narrative agent
+on expert-validated reports, adding sub-metering disaggregation, and extending
+anomaly classification to equipment-specific fault signatures.
+
+% ============================================================
+% References
+% ============================================================
+
+\begin{thebibliography}{8}
+
+\bibitem{Khaleghy2026}
+Khaleghy, H., Clifford, E., Mason, K.: An agent based approach to Irish dairy
+farm electricity consumption modeling. Renewable Energy Focus, 100866 (2026)
+
+\bibitem{Upton2015}
+Upton, J., Murphy, M., De Boer, I.J.M., Groot Koerkamp, P.W.G., Berentsen,
+P.B.M., Shalloo, L.: Investment appraisal of technology innovations on dairy
+farm electricity consumption. Journal of Dairy Science 98(2), 898--909 (2015)
+
+\bibitem{Cook2019}
+Cook, A.A., Misirkol, G., Fan, Z., Rana, R.: Anomaly detection for IoT
+time-series data: a survey. IEEE Internet of Things Journal 7(7),
+6481--6494 (2019)
+
+\bibitem{Lewis2020}
+Lewis, P., Perez, E., Piktus, A., et al.: Retrieval-augmented generation for
+knowledge-intensive NLP tasks. In: Advances in Neural Information Processing
+Systems (NeurIPS), vol.~33, pp.~9459--9474 (2020)
+
+\bibitem{Goswami2024}
+Goswami, M., Szafer, K., Choudhry, A., Cai, Y., Li, S., Dubrawski, A.:
+MOMENT: a family of open time-series foundation models. In: Proceedings of
+the 41st International Conference on Machine Learning (ICML),
+pp.~16115--16152 (2024)
+
+\bibitem{Qwen2024}
+Yang, A., Yang, B., Zhang, B., et al.: Qwen2.5 technical report.
+arXiv preprint arXiv:2412.15115 (2024)
+
+\bibitem{Wang2020}
+Wang, W., Wei, F., Dong, L., Bao, H., Yang, N., Zhou, M.: MiniLM: deep
+self-attention distillation for task-agnostic compression of pre-trained
+transformers. In: Advances in Neural Information Processing Systems (NeurIPS),
+vol.~33, pp.~5776--5788 (2020)
+
+\end{thebibliography}
+
+\end{document}

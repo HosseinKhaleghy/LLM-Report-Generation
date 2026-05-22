@@ -1,0 +1,25 @@
+# --- Python ---
+__pycache__/
+*.pyc
+.DS_Store
+
+# --- virtual environments ---
+.venv/
+venv/
+
+# --- large raw datasets (re-generate or fetch separately) ---
+all_farms_hourly_data.csv
+
+# --- scratch artefacts from earlier development ---
+*.pdf
+pdf_demo*.txt
+pdf_demo_section.txt
+pdf_demos_full.txt
+pdf_extract.txt
+pipeline_run.log
+sample_farm.csv
+
+# --- IDE / OS clutter ---
+.idea/
+.vscode/
+Thumbs.db

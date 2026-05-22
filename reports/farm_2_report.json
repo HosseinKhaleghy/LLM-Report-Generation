@@ -1,0 +1,289 @@
+{
+  "generated_at": "2026-05-22T20:14:29",
+  "data_quality": {
+    "hours_analysed": 3532,
+    "first_timestamp": "2020-02-13 09:00:00",
+    "last_timestamp": "2020-07-09 12:00:00",
+    "span_days": 147.2
+  },
+  "energy_summary": {
+    "total_consumption_kwh": 3241.8,
+    "mean_hourly_wh": 917.8,
+    "peak_hourly_wh": 11794.4,
+    "baseline_load_wh": 2.8,
+    "baseline_annual_cost_eur": 7.25,
+    "load_factor": 0.078,
+    "baseline_share_pct": 0.3,
+    "estimated_annual_cost_eur": 972.54,
+    "tariff_eur_per_kwh": 0.3
+  },
+  "hourly_analysis": {
+    "hourly_avg_wh": [
+      9.2,
+      9.0,
+      12.0,
+      11.7,
+      307.2,
+      2380.8,
+      3266.1,
+      2135.2,
+      2181.2,
+      2299.3,
+      1575.3,
+      2185.9,
+      2514.5,
+      1831.6,
+      767.7,
+      336.3,
+      111.6,
+      6.8,
+      8.5,
+      8.3,
+      8.1,
+      8.0,
+      9.6,
+      10.8
+    ],
+    "peak_hour": 6,
+    "off_peak_hour": 17,
+    "peak_hour_avg_wh": 3266.1,
+    "off_peak_hour_avg_wh": 6.8,
+    "night_avg_wh": 343.8,
+    "daytime_avg_wh": 1381.0
+  },
+  "monthly_analysis": {
+    "by_month": [
+      {
+        "month": "2020-02",
+        "total_kwh": 375.7,
+        "estimated_cost_eur": 112.7,
+        "mean_hourly_wh": 941.5,
+        "peak_hourly_wh": 9101.7,
+        "hours": 399
+      },
+      {
+        "month": "2020-03",
+        "total_kwh": 622.8,
+        "estimated_cost_eur": 186.83,
+        "mean_hourly_wh": 837.1,
+        "peak_hourly_wh": 10698.2,
+        "hours": 744
+      },
+      {
+        "month": "2020-04",
+        "total_kwh": 563.1,
+        "estimated_cost_eur": 168.93,
+        "mean_hourly_wh": 782.1,
+        "peak_hourly_wh": 8651.1,
+        "hours": 720
+      },
+      {
+        "month": "2020-05",
+        "total_kwh": 609.2,
+        "estimated_cost_eur": 182.77,
+        "mean_hourly_wh": 818.8,
+        "peak_hourly_wh": 8177.8,
+        "hours": 744
+      },
+      {
+        "month": "2020-06",
+        "total_kwh": 823.8,
+        "estimated_cost_eur": 247.13,
+        "mean_hourly_wh": 1144.1,
+        "peak_hourly_wh": 11532.0,
+        "hours": 720
+      },
+      {
+        "month": "2020-07",
+        "total_kwh": 247.3,
+        "estimated_cost_eur": 74.18,
+        "mean_hourly_wh": 1206.1,
+        "peak_hourly_wh": 11794.4,
+        "hours": 205
+      }
+    ],
+    "highest_month": "2020-06",
+    "lowest_month": "2020-04",
+    "swing_kwh": 260.7,
+    "swing_mean_wh": 362.0
+  },
+  "seasonal_analysis": {
+    "by_season": [
+      {
+        "season": "Winter",
+        "total_kwh": 375.7,
+        "mean_hourly_wh": 941.5,
+        "hours": 399
+      },
+      {
+        "season": "Spring",
+        "total_kwh": 1795.1,
+        "mean_hourly_wh": 813.0,
+        "hours": 2208
+      },
+      {
+        "season": "Summer",
+        "total_kwh": 1071.0,
+        "mean_hourly_wh": 1157.9,
+        "hours": 925
+      }
+    ],
+    "highest_season": "Spring",
+    "lowest_season": "Winter",
+    "swing_kwh": 1419.4,
+    "swing_mean_wh": -128.5
+  },
+  "anomaly_detection": {
+    "method": "MOMENT-1-large reconstruction gap (absolute residual)",
+    "model": "AutonLab/MOMENT-1-large",
+    "description": "an hour is flagged when the absolute gap between MOMENT's reconstruction and the actual consumption exceeds the threshold",
+    "abs_deviation_threshold": 7674.0,
+    "abs_threshold_auto": true,
+    "anomalous_hours": 18,
+    "anomaly_rate_pct": 0.51,
+    "high_consumption_events": 18,
+    "low_consumption_events": 0,
+    "largest_deviation": 10782.1,
+    "first_anomaly": {
+      "timestamp": "2020-02-24 10:00:00",
+      "hour_of_day": 10,
+      "consumption": 9101.7,
+      "expected": 1042.2,
+      "deviation": 8059.5,
+      "abs_deviation": 8059.5,
+      "direction": "high"
+    },
+    "top_anomalies": [
+      {
+        "timestamp": "2020-07-07 12:00:00",
+        "hour_of_day": 12,
+        "consumption": 11794.4,
+        "expected": 1012.3,
+        "deviation": 10782.1,
+        "abs_deviation": 10782.1,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-06-29 12:00:00",
+        "hour_of_day": 12,
+        "consumption": 11532.0,
+        "expected": 1011.1,
+        "deviation": 10520.9,
+        "abs_deviation": 10520.9,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-06-30 12:00:00",
+        "hour_of_day": 12,
+        "consumption": 10831.2,
+        "expected": 1128.1,
+        "deviation": 9703.0,
+        "abs_deviation": 9703.0,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-06-29 11:00:00",
+        "hour_of_day": 11,
+        "consumption": 10285.9,
+        "expected": 970.0,
+        "deviation": 9315.9,
+        "abs_deviation": 9315.9,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-07-06 08:00:00",
+        "hour_of_day": 8,
+        "consumption": 11104.8,
+        "expected": 1890.7,
+        "deviation": 9214.1,
+        "abs_deviation": 9214.1,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-07-07 11:00:00",
+        "hour_of_day": 11,
+        "consumption": 10491.6,
+        "expected": 1312.0,
+        "deviation": 9179.6,
+        "abs_deviation": 9179.6,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-06-23 12:00:00",
+        "hour_of_day": 12,
+        "consumption": 10503.5,
+        "expected": 1471.5,
+        "deviation": 9031.9,
+        "abs_deviation": 9031.9,
+        "direction": "high"
+      },
+      {
+        "timestamp": "2020-06-29 06:00:00",
+        "hour_of_day": 6,
+        "consumption": 9867.3,
+        "expected": 1279.7,
+        "deviation": 8587.5,
+        "abs_deviation": 8587.5,
+        "direction": "high"
+      }
+    ],
+    "assessment": "Moderate irregularity (0.51% of hours), predominantly high-consumption spikes. The flagged hours are large absolute departures from what MOMENT reconstructs as normal and warrant a maintenance review."
+  },
+  "herd_efficiency": {
+    "herd_size_used": 15,
+    "kwh_per_cow_year": 216.1,
+    "fleet_median_kwh_per_cow": 313.2,
+    "vs_fleet_pct": -31.0,
+    "rating": "efficient"
+  },
+  "fleet_benchmark": {
+    "total_kwh_percentile": "bottom 25% (low consumer)",
+    "baseline_vs_fleet": "normal idle load",
+    "fleet_size": 96
+  },
+  "farm_name": "farm_2",
+  "herd_size_prediction": {
+    "predicted_cows": 15,
+    "raw_prediction": 15.39,
+    "plausible_range": [
+      6,
+      11
+    ],
+    "model": "energy-benchmarked estimate",
+    "model_cv_mae": 12.107,
+    "model_cv_r2": 0.6017,
+    "in_training_range": false,
+    "extrapolation_note": "This farm's annual consumption (3,242 kWh) is smaller than farms used for model training (5,409\u201339,307 kWh). The estimate blends the regression model with a consumption-benchmarked estimate (10 cows at the fleet median of 313 kWh/cow/year) and should be treated as indicative."
+  },
+  "llm_narrative": {
+    "backend": "ollama",
+    "model": "qwen2.5:14b",
+    "text": "## Overview\n\nThis farm has been analyzed over a period of 3532 hours, with an estimated herd size of 15 cows, though the prediction model suggests a plausible range of 6 to 11 cows, indicating potential uncertainty in the herd size estimate. The total energy consumption recorded is 3241.8 kWh, with an idle load share of 0.3%, which is above the healthy range of 10-15% as cited in the REFERENCE GUIDANCE, suggesting a high baseline consumption that could be indicative of inefficiencies or unnecessary equipment running. Additionally, the anomaly detection flagged 18 anomalous hours, corresponding to an anomaly rate of 0.51%, which, according to the guidance, indicates the presence of fault events rather than scheduling opportunities, necessitating immediate attention to these issues to prevent further energy waste or equipment damage.\n\n## Herd size\n\nThe herd size estimate for this farm predicts 15 cows, with a plausible range of 6 to 11 cows, based on an energy-benchmarked estimate model. Since the 'in_training_range' flag is false, this estimate is an extrapolation beyond the model's tested range and should be considered indicative rather than definitive. The wide plausible range suggests significant uncertainty in the actual herd size, which may affect the accuracy of the energy consumption analysis and efficiency rating.\n\n## Electricity consumption\n\nThe farm's total annual electricity consumption is 3,241.8 kWh, resulting in an estimated annual cost of \u20ac972.54 under the current tariff of \u20ac0.3 per kWh. The mean hourly consumption is 917.8 Wh, while the peak hourly consumption reaches 11,794.4 Wh. The baseline load, representing the always-on equipment, is 2.8 Wh, which constitutes 0.3% of the mean hourly consumption, significantly above the healthy range of 10-15%. This elevated baseline load suggests the presence of unnecessary or inefficient always-on equipment, such as lighting, heating, or cooling systems, contributing to an annual idle load cost of \u20ac7.25.\n\n## Hourly analysis\n\nThe hourly analysis reveals a pronounced daily load shape with a peak hour at 6 AM, where the farm consumes 3,266.1 Wh, significantly higher than the off-peak hour at 5 PM with only 6.8 Wh. This stark contrast indicates peak activity likely centered around milking and milk cooling operations early in the morning, followed by a lull in energy demand during the late afternoon. Overnight, the average consumption is 343.8 Wh, while daytime averages at 1,381.0 Wh, suggesting higher operational activities during daylight hours, possibly due to additional water heating and ventilation requirements.\n\n## Monthly analysis\n\nThe highest consumption month for the farm was June 2020, with a total of 823.8 kWh and an estimated cost of 247.13 EUR. The mean hourly consumption was 1,144.1 Wh, and the peak consumption reached 11,532.0 Wh. In contrast, the lowest consumption month was April 2020, with a total of 563.1 kWh and an estimated cost of 168.93 EUR. The mean hourly consumption was 782.1 Wh, and the peak consumption was 8,651.1 Wh. The swing in consumption between these months was 260.7 kWh and 362.0 Wh in mean hourly consumption. According to the REFERENCE GUIDANCE, the higher consumption in June can be attributed to increased water heating demands due to warmer weather, while the lower consumption in April is consistent with reduced heating needs as temperatures cool.\n\n## Seasonal analysis\n\nThe seasonal analysis reveals that Spring is the peak energy consumption period for the farm, with a total of 1,795.1 kWh over 2,208 hours, significantly higher than the other seasons. Winter, on the other hand, sees the lowest energy consumption at 375.7 kWh over 399 hours. The difference in energy consumption between the highest and lowest seasons is 1,419.4 kWh, indicating a substantial seasonal swing. This variation is primarily driven by cold-season water heating demands in Winter and reduced cooling and ventilation needs in Summer, which contrasts with the increased milk cooling and ventilation requirements during Spring.\n\n## Anomalies\n\nThe anomaly detection flagged 18 hours as anomalous, representing 0.51% of the total hours analysed, predominantly high-consumption events. The first flagged anomaly occurred on February 24, 2020, at 10:00, with actual consumption of 9,101.7 Wh, compared to MOMENT's reconstruction of 1,042.2 Wh, resulting in a deviation of 8,059.5 Wh. The most significant anomalies, all high-consumption events, were recorded in June and July, with deviations exceeding 9,214.1 Wh. These events likely correspond to unexpected surges in water heating or milk cooling due to equipment malfunction or operational errors, warranting a thorough maintenance review.\n\n## Recommendations\n\n1. **Reduce water heating demand:** The farm's baseline load is 2.8 Wh, which represents 0.3% of the mean hourly consumption, indicating a significant idle load. Given that water heating typically accounts for 25-35% of total dairy electricity use, insulating the hot-water cylinder and fitting a timer to heat only ahead of milking can reduce energy waste. This measure can lead to around 50-60% savings in water heating energy, aligning with the benchmark for efficient dairy operations.\n\n2. **Shift water heating to off-peak hours:** With the off-peak hour designated at 17, scheduling the water heating cycle to coincide with this period can leverage lower tariffs. The current tariff is 0.3 EUR/kWh, and shifting the load can reduce costs without changing total energy consumption. This approach is directly supported by the reference guidance on water heating scheduling and off-peak tariffs.\n\n3. **Improve milk cooling efficiency:** The total consumption of 3,241.8 kWh suggests that milk cooling, along with water heating, accounts for a significant portion of the farm's energy use. Installing a plate cooler can reduce milk cooling energy by around 50-60%, as per the reference guidance. This measure targets the major dairy load of milk cooling and is crucial for enhancing overall energy efficiency.\n\n4. **Optimize vacuum and milk pump settings:** The herd efficiency rating indicates that the farm is using 216.1 kWh per cow per year, which is 31% more efficient than the fleet median of 313.2 kWh per cow. However, any deviation from optimal settings can lead to increased consumption. Ensuring that vacuum and milk pumps are operating at their most efficient settings can prevent unnecessary energy draw and maintain optimal performance.\n\n5. **Investigate high-consumption anomalies:** The farm has recorded 18 high-consumption events, which could indicate a sustained fault or equipment malfunction. According to the fault signature guidance, consecutive high-consumption anomalies on the same day are likely a sustained fault. Investigating these anomalies promptly can prevent further energy waste and costly repairs, ensuring that equipment operates efficiently and safely.\n\n_Energy Advisor_",
+    "rag_sources": [
+      {
+        "topic": "Benchmark: where dairy electricity is used",
+        "score": 0.796
+      },
+      {
+        "topic": "Water heating load and proportion",
+        "score": 0.78
+      },
+      {
+        "topic": "Water heating: scheduling and off-peak tariffs",
+        "score": 0.676
+      },
+      {
+        "topic": "Pattern: seasonal consumption",
+        "score": 0.674
+      },
+      {
+        "topic": "Fault signature: consecutive high-consumption anomalies",
+        "score": 0.574
+      },
+      {
+        "topic": "Fault signature: vacuum or milk pump problem",
+        "score": 0.545
+      }
+    ]
+  }
+}

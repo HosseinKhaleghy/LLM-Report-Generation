@@ -1,0 +1,23 @@
+# Requires Python >= 3.10 (momentfm). Install into the bundled venv:
+#   python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# Core
+pandas
+numpy
+scipy
+scikit-learn
+joblib
+
+# Deep learning: herd-size MLP baseline + the MOMENT anomaly detector.
+# momentfm pins transformers==4.33.3, so transformers is left for it to resolve.
+torch
+momentfm
+
+# Interface & visualisation
+streamlit
+plotly
+
+# LLM report generation — the 'ollama' backend talks to a local Ollama server
+# over HTTP. (A 'transformers' Llama backend also exists in the code.)
+requests
+transformers

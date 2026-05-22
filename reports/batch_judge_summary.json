@@ -1,0 +1,42 @@
+[
+  {
+    "farm": 2,
+    "D1_mean": 5.0,
+    "D2_mean": 4.88,
+    "D3_mean": 5.0,
+    "OVR_mean": 4.88,
+    "n_sections": 8
+  },
+  {
+    "farm": 4,
+    "D1_mean": 5.0,
+    "D2_mean": 4.88,
+    "D3_mean": 4.75,
+    "OVR_mean": 4.75,
+    "n_sections": 8
+  },
+  {
+    "farm": 5,
+    "D1_mean": 5.0,
+    "D2_mean": 4.5,
+    "D3_mean": 5.0,
+    "OVR_mean": 4.62,
+    "n_sections": 8
+  },
+  {
+    "farm": 6,
+    "D1_mean": 5.0,
+    "D2_mean": 4.62,
+    "D3_mean": 5.0,
+    "OVR_mean": 4.75,
+    "n_sections": 8
+  },
+  {
+    "farm": 7,
+    "D1_mean": 5.0,
+    "D2_mean": 4.25,
+    "D3_mean": 4.5,
+    "OVR_mean": 4.5,
+    "n_sections": 8
+  }
+]
