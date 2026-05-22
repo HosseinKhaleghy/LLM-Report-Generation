@@ -14,7 +14,7 @@ A customer uploads a real dairy farm's hourly electricity export with just a **t
 4. **Narrates the report** as a detailed analytical advisory note with a local LLM (`qwen2.5:14b` via [Ollama](https://ollama.com)), with recommendations **grounded by RAG** in a curated dairy energy knowledge base.
 5. Presents everything through a **Streamlit web interface**.
 
-The pipeline runs **offline on a laptop**. No cloud APIs, no keys.
+The pipeline runs **offline**. No cloud APIs, no keys.
 
 ## Why it is interesting
 
