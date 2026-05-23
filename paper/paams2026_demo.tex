@@ -169,7 +169,7 @@ The demonstration runs through an interactive Streamlit web
 application.\footnote{Source code and cached demonstration data:
 \url{https://github.com/HosseinKhaleghy/LLM-Report-Generation}}
 A real hourly electricity CSV file can be uploaded, or a preloaded dataset
-representing a real Irish dairy farm can be used instead. The coordinator
+representing a real Irish dairy farm~\cite{DairyDataset} can be used instead. The coordinator
 initiates the pipeline immediately, and each agent's output becomes
 inspectable across tabs as it arrives, with the advisory report available
 for download on completion. The goal is to show how a multi-agent system decomposes
@@ -220,7 +220,7 @@ high-consumption and 27 as low-consumption events.
 \subsection{LLM-as-Judge Evaluation}
 
 An automated LLM-as-judge protocol was applied to reports generated for five
-real dairy farms (farms 2, 4, 5, 6, and 7 from the dataset). A locally
+real dairy farms (farms 2, 4, 5, 6, and 7 from the dataset~\cite{DairyDataset}). A locally
 deployed qwen2.5:14b judge model scored each of the eight report sections on
 three dimensions: factual grounding (D1, whether every cited figure is
 traceable to the farm data), benchmark integrity (D2, whether all cited
@@ -307,6 +307,11 @@ vol.~33, pp.~5776--5788 (2020)
 \bibitem{Qwen2024}
 Yang, A., Yang, B., Zhang, B., et al.: Qwen2.5 technical report.
 arXiv preprint arXiv:2412.15115 (2024)
+
+\bibitem{DairyDataset}
+Dairy farm electricity consumption dataset [Dataset]. University of
+Strathclyde KnowledgeBase (2024).
+\url{https://doi.org/10.15129/1211ae7c-9b70-4a39-b3ce-318d81583749}
 
 \end{thebibliography}
 
