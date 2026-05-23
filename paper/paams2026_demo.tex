@@ -93,17 +93,13 @@ advice a non-expert operator can act on directly.
 \label{sec:purpose}
 % ============================================================
 
-The system asks: given only a farm's hourly electricity consumption time
-series, what energy-efficiency advice can be derived automatically and
-communicated in accessible, farm-specific language? To answer this, it pursues
-four goals. First, it estimates herd size from the consumption pattern alone,
-so that energy use can be contextualised per cow against industry benchmarks.
-Second, it characterises energy use across hourly, monthly, and seasonal
-dimensions to expose the baseline idle load and the peak operating hours.
-Third, it detects anomalous hours without any labelled training data, surfacing
-equipment faults automatically. Fourth, it generates a plain-language advisory
-grounded in a curated knowledge base, tailored to the specific figures of each
-farm.
+Given only a farm's hourly electricity consumption time series, the system
+estimates herd size from the consumption pattern so energy use can be
+contextualised per cow against industry benchmarks, characterises consumption
+at hourly, monthly and seasonal granularity to expose the baseline idle load
+and peak operating hours, detects anomalous hours without any labelled
+training data, and generates a plain-language advisory grounded in a curated
+knowledge base and tailored to each farm.
 
 \subsection{Multi-Agent Architecture}
 
@@ -120,11 +116,7 @@ asynchronously replaceable without modifying the others.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.90\textwidth]{fig1.pdf}
-  \caption{Sequential multi-agent pipeline for the dairy farm energy advisor.
-    The coordinator agent oversees execution and delegates tasks to six
-    specialist agents. Each agent enriches the shared JSON report object and
-    passes it to the next. The RAG agent retrieves knowledge from the curated
-    dairy energy knowledge base to support the LLM narrative agent.}
+  \caption{Coordinator-delegated multi-agent pipeline. Six specialist agents fire autonomously and write to a shared JSON report; the RAG agent grounds the narrative in a curated knowledge base..}
   \label{fig:arch}
 \end{figure}
 
@@ -192,27 +184,23 @@ The demonstration runs through an interactive Streamlit web
 application.\footnote{Source code and cached demonstration data:
 \url{https://github.com/HosseinKhaleghy/LLM-Report-Generation}}
 Attendees may upload their own real hourly electricity CSV file or use a
-preloaded benchmark dataset representing a real Irish dairy farm. The
-coordinator initiates the pipeline immediately on upload, and observers can
-follow each agent's output as it arrives, inspect intermediate results across
-tabs, compare anomaly explanations, and download the generated advisory report.
-The experiential goal is to show how a multi-agent system decomposes an
-advisory task that no single model can handle reliably into a sequence of
-focused, auditable agent outputs.
+preloaded dataset representing a real Irish dairy farm. The coordinator
+initiates the pipeline immediately, and observers can follow each agent's
+output as it arrives, inspect intermediate results across tabs, and download
+the advisory report. The goal is to show how a multi-agent system decomposes
+a task that no single model handles reliably into a sequence of focused,
+auditable agent outputs.
 
 \subsection{Interface and Interaction Flow}
 
-The interface presents six tabs that populate progressively as each task agent
-completes. The Overview tab shows the herd-size estimate with plausible range
-and KPI cards for total consumption, baseline share, and estimated annual cost.
-The Hourly tab shows mean consumption by hour of day with peak and off-peak
-hours highlighted. The Monthly tab presents a consumption heatmap with KPI
-cards for the highest and lowest month and the energy swing between them. The
-Seasonal tab compares the four seasons by total and mean hourly consumption.
-The Anomalies tab shows a timeline of flagged hours coloured by direction,
-a table of the largest deviations, and a plain-language severity assessment.
-The Advisory tab renders the LLM narrative as structured Markdown and provides
-a one-click download button.
+The interface presents six tabs that populate as each task agent completes.
+The Overview tab shows the herd-size estimate with plausible range and KPI
+cards for total consumption, baseline share, and estimated annual cost. The
+Hourly, Monthly and Seasonal tabs visualise consumption at their respective
+granularities, with the highest and lowest periods highlighted. The Anomalies
+tab shows a timeline of flagged hours coloured by direction, a table of the
+largest deviations, and a plain-language severity assessment. The Advisory
+tab renders the LLM narrative as Markdown with a one-click download button.
 
 The herd-size estimate and full energy dashboard appear within seconds of
 upload, as model weights are pre-loaded at application startup. Anomaly
@@ -236,7 +224,7 @@ high-consumption and 27 as low-consumption events.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\textwidth]{fig_screenshot.png}
+  \includegraphics[width=\textwidth]{overview.png}
   \caption{The application running on a real dairy farm dataset. The Overview
     tab (shown) displays the herd-size estimate, KPI cards for consumption
     and cost, and the hour-of-day load profile. The remaining tabs provide
@@ -298,15 +286,13 @@ and grounding the narrative in a curated knowledge base through the RAG agent.
 Together these choices substantially reduce hallucination and improve factual
 fidelity in the advisory text.
 
-The demonstration illustrates how specialised agents, each handling a task
-that no single model performs well in isolation, can collectively approximate
-the output of a human energy consultant at a fraction of the cost and response
-time. A preliminary evaluation with five domain experts confirmed the practical
+A preliminary evaluation with five domain experts confirmed the practical
 utility of the output, and an automated LLM-as-judge assessment across five
 real farms yielded a mean overall score of 4.70 out of 5, with perfect
-factual grounding (5.00) across all farms. Future work will explore fine-tuning the narrative agent
-on expert-validated reports, adding sub-metering disaggregation, and extending
-anomaly classification to equipment-specific fault signatures.
+factual grounding across all farms. Future work will explore fine-tuning the
+narrative agent on expert-validated reports, adding sub-metering
+disaggregation, and extending anomaly classification to equipment-specific
+fault signatures.
 
 % ============================================================
 % References
