@@ -168,11 +168,11 @@ successor without modifying the rest of the pipeline.
 The demonstration runs through an interactive Streamlit web
 application.\footnote{Source code and cached demonstration data:
 \url{https://github.com/HosseinKhaleghy/LLM-Report-Generation}}
-Attendees may upload their own real hourly electricity CSV file or use a
-preloaded dataset representing a real Irish dairy farm. The coordinator
-initiates the pipeline immediately, and observers can follow each agent's
-output as it arrives, inspect intermediate results across tabs, and download
-the advisory report. The goal is to show how a multi-agent system decomposes
+A real hourly electricity CSV file can be uploaded, or a preloaded dataset
+representing a real Irish dairy farm can be used instead. The coordinator
+initiates the pipeline immediately, and each agent's output becomes
+inspectable across tabs as it arrives, with the advisory report available
+for download on completion. The goal is to show how a multi-agent system decomposes
 a task that no single model handles reliably into a sequence of focused,
 auditable agent outputs.
 
@@ -187,14 +187,13 @@ tab shows a timeline of flagged hours coloured by direction, a table of the
 largest deviations, and a plain-language severity assessment. The Advisory
 tab renders the LLM narrative as Markdown with a one-click download button.
 
-The herd-size estimate and full energy dashboard appear within seconds of
-upload, as model weights are pre-loaded at application startup. Anomaly
-detection completes in approximately 60 to 120 seconds on CPU, after which
-the Anomalies tab becomes interactive. LLM generation takes approximately 3
-to 5 minutes on CPU and renders section by section as each completes, giving
-attendees time to explore the energy and anomaly tabs while the advisory
-produces. A preloaded farm example ensures the demonstration can begin
-immediately without any upload delay.
+The herd-size estimate and full energy dashboard appear shortly after upload,
+as model weights are pre-loaded at application startup. Anomaly detection
+runs next and unlocks the Anomalies tab on completion, and the LLM narrative
+is then produced section by section, populating the Advisory tab
+incrementally so the energy and anomaly tabs can be explored in parallel. A
+preloaded farm example ensures the demonstration can begin immediately
+without any upload delay.
 
 \subsection{Example Output}
 
