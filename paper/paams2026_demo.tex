@@ -197,9 +197,9 @@ without any upload delay.
 
 \subsection{Example Output}
 
-Figure~\ref{fig:screenshot} shows the application running on a real Irish
+Figure~\ref{fig:screenshot} shows the application running on a real
 dairy farm dataset with 8521 hours of recorded consumption. The pipeline
-estimated a herd of 164 cows (plausible range 115 to 192), a total annual
+estimated a herd of 164 cows, a total annual
 consumption of 57505.9 kWh (17251.78 EUR at the farm's tariff), and a
 baseline idle load of 4679.4 Wh representing 69.3\% of mean hourly
 consumption, at an annual idle-load cost of 12297.46 EUR. The anomaly
@@ -220,21 +220,24 @@ high-consumption and 27 as low-consumption events.
 \subsection{LLM-as-Judge Evaluation}
 
 An automated LLM-as-judge protocol was applied to reports generated for five
-real dairy farms (farms 2, 4, 5, 6, and 7 from the dataset~\cite{DairyDataset}). A locally
-deployed qwen2.5:14b judge model scored each of the eight report sections on
-three dimensions: factual grounding (D1, whether every cited figure is
+real dairy farms (farms 2, 4, 5, 6, and 7 from the
+dataset~\cite{DairyDataset}). Each of the eight report sections was scored
+on three dimensions: factual grounding (D1, whether every cited figure is
 traceable to the farm data), benchmark integrity (D2, whether all cited
 thresholds are attributable to the knowledge base), and physical soundness
-(D3, whether causal reasoning matches Irish dairy farm reality). Across all
-40 section-level judgements (five farms, eight sections each), mean scores
-were D1\,=\,5.00, D2\,=\,4.63, D3\,=\,4.85, and overall\,=\,4.70 on a 1--5
-scale. Factual grounding was perfect across all farms; the modest D2
-variance reflects isolated instances where the model cited a benchmark range
-that the judge could not directly map to a retrieved knowledge-base passage.
-Because the narrative generator and the judge are drawn from the same
-qwen2.5 model family, these figures should be interpreted as an optimistic
-upper bound, and an independent judge from a different model family would
-likely score the physical-soundness dimension more critically.
+(D3, whether causal reasoning matches Irish dairy farm reality). To control
+for the self-evaluation bias inherent in using the same model as both
+generator and judge, two independent judges were applied. A locally deployed
+qwen2.5:14b, drawn from the same family as the narrative generator, returned
+mean scores of D1\,=\,5.00, D2\,=\,4.63, D3\,=\,4.85, and overall\,=\,4.70
+on a 1--5 scale across the 40 section-level judgements. The same reports,
+judged independently by Claude Sonnet 4.6, returned D1\,=\,4.97,
+D2\,=\,4.21, D3\,=\,3.75, and overall\,=\,4.00. Factual grounding remained
+near perfect under both judges, confirming that pre-computing every cited
+figure in the energy analysis agent reliably prevents the LLM from inventing
+numbers. The gap in physical-soundness scores (4.85 against 3.75) shows
+that the same-family judge was lenient on causal reasoning, supporting the
+use of an independent judge in any future evaluation pipeline.
 
 % ============================================================
 \section{Conclusions}
@@ -255,12 +258,12 @@ and grounding the narrative in a curated knowledge base through the RAG agent.
 Together these choices substantially reduce hallucination and improve factual
 fidelity in the advisory text.
 
-An automated LLM-as-judge assessment across five real farms yielded a mean
-overall score of 4.70 out of 5, with perfect factual grounding across all
-farms. Future work will validate these findings against domain experts and
-an independent judge model, explore fine-tuning the narrative agent on
-expert-reviewed reports, and extend anomaly classification to
-equipment-specific fault signatures.
+A dual-judge LLM-as-judge assessment across five real farms yielded mean
+overall scores of 4.70 from a same-family qwen2.5:14b judge and 4.00 from an
+independent Claude Sonnet 4.6 judge, with factual grounding near perfect
+under both. Future work will validate these findings against domain experts,
+explore fine-tuning the narrative agent on expert-reviewed reports, and
+extend anomaly classification to equipment-specific fault signatures.
 
 % ============================================================
 % References
