@@ -44,9 +44,9 @@ base, and narrative generation using a locally deployed large language model.
 The demonstration shows the full pipeline through an interactive web
 application: the operator uploads a CSV file and receives, progressively, a
 herd-size estimate, an annotated energy dashboard, an anomaly timeline, and a
-farm-specific advisory report. A preliminary evaluation with five agricultural
-energy professionals confirmed the reports to be factually grounded and
-immediately actionable without specialist training.
+farm-specific advisory report. An automated LLM-as-judge evaluation across
+five real Irish dairy farms found the generated reports factually grounded,
+with every cited figure traceable to the precomputed analytical data.
 \end{abstract}
 
 \keywords{Multi-agent systems \and Energy efficiency \and Dairy farming \and
@@ -217,35 +217,24 @@ high-consumption and 27 as low-consumption events.
   \label{fig:screenshot}
 \end{figure}
 
-\subsection{Preliminary Usability Evaluation}
+\subsection{LLM-as-Judge Evaluation}
 
-A preliminary evaluation was conducted with five agricultural energy
-professionals, each interacting with the system on an anonymised real farm
-dataset. All five confirmed that the advisory contained no fabricated figures
-and that every recommendation was grounded in a data value verifiable in the
-dashboard; four out of five rated the herd-size estimate as plausible; and
-all five identified at least one maintenance action from the anomaly timeline
-they would prioritise. Participants engaged with the energy and anomaly tabs
-while the advisory generated, and none reported the wait as excessive.
-
-To complement the human evaluation, an automated LLM-as-judge protocol was
-applied to reports generated for five real dairy farms (farms 2, 4, 5, 6,
-and 7 from the dataset). A locally deployed qwen2.5:14b judge model scored
-each of the eight report sections on three dimensions: factual grounding
-(D1, whether every cited figure is traceable to the farm data), benchmark
-integrity (D2, whether all cited thresholds are attributable to the
-knowledge base), and physical soundness (D3, whether causal reasoning
-matches Irish dairy farm reality). Across all 40 section-level judgements
-(five farms, eight sections each), mean scores were D1\,=\,5.00,
-D2\,=\,4.63, D3\,=\,4.85, and overall\,=\,4.70 on a 1--5 scale.
-Factual grounding was perfect across all farms; the modest D2 variance
-reflects isolated instances where the model cited a benchmark range that
-the judge could not directly map to a retrieved knowledge-base passage.
+An automated LLM-as-judge protocol was applied to reports generated for five
+real dairy farms (farms 2, 4, 5, 6, and 7 from the dataset). A locally
+deployed qwen2.5:14b judge model scored each of the eight report sections on
+three dimensions: factual grounding (D1, whether every cited figure is
+traceable to the farm data), benchmark integrity (D2, whether all cited
+thresholds are attributable to the knowledge base), and physical soundness
+(D3, whether causal reasoning matches Irish dairy farm reality). Across all
+40 section-level judgements (five farms, eight sections each), mean scores
+were D1\,=\,5.00, D2\,=\,4.63, D3\,=\,4.85, and overall\,=\,4.70 on a 1--5
+scale. Factual grounding was perfect across all farms; the modest D2
+variance reflects isolated instances where the model cited a benchmark range
+that the judge could not directly map to a retrieved knowledge-base passage.
 Because the narrative generator and the judge are drawn from the same
-qwen2.5 model family, these figures should be interpreted as an
-optimistic upper bound, and an independent judge from a different model
-family would likely score the physical-soundness dimension more
-critically.
+qwen2.5 model family, these figures should be interpreted as an optimistic
+upper bound, and an independent judge from a different model family would
+likely score the physical-soundness dimension more critically.
 
 % ============================================================
 \section{Conclusions}
@@ -266,13 +255,12 @@ and grounding the narrative in a curated knowledge base through the RAG agent.
 Together these choices substantially reduce hallucination and improve factual
 fidelity in the advisory text.
 
-A preliminary evaluation with five domain experts confirmed the practical
-utility of the output, and an automated LLM-as-judge assessment across five
-real farms yielded a mean overall score of 4.70 out of 5, with perfect
-factual grounding across all farms. Future work will explore fine-tuning the
-narrative agent on expert-validated reports, adding sub-metering
-disaggregation, and extending anomaly classification to equipment-specific
-fault signatures.
+An automated LLM-as-judge assessment across five real farms yielded a mean
+overall score of 4.70 out of 5, with perfect factual grounding across all
+farms. Future work will validate these findings against domain experts and
+an independent judge model, explore fine-tuning the narrative agent on
+expert-reviewed reports, and extend anomaly classification to
+equipment-specific fault signatures.
 
 % ============================================================
 % References
