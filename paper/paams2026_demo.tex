@@ -32,10 +32,10 @@
 \maketitle
 
 \begin{abstract}
-We present a multi-agent decision-support system that transforms a raw hourly
-electricity export from a dairy farm into a structured energy report and a
-plain-language advisory note, without requiring any domain expertise from the
-operator. A coordinator agent orchestrates six specialised task agents, each
+This paper presents a multi-agent decision-support system that transforms a
+raw hourly electricity export from a dairy farm into a structured energy
+report and a plain-language advisory note, without requiring any domain
+expertise from the operator. A coordinator agent orchestrates six specialised task agents, each
 with autonomous trigger conditions and an independent decision policy, covering
 data ingestion and cleaning, herd-size estimation, statistical energy
 characterisation, zero-shot anomaly detection using the MOMENT-1-large
@@ -252,10 +252,11 @@ critically.
 \label{sec:conclusions}
 % ============================================================
 
-We have demonstrated a multi-agent pipeline in which a coordinator agent
-delegates tasks across six specialised agents, each with autonomous trigger
-conditions, local reasoning, and an independent decision policy, to transform
-a single hourly electricity CSV into a farm-specific energy advisory. The
+This paper has demonstrated a multi-agent pipeline in which a coordinator
+agent delegates tasks across six specialised agents, each with autonomous
+trigger conditions, local reasoning, and an independent decision policy, to
+transform a single hourly electricity CSV into a farm-specific energy
+advisory. The
 system operates without labelled anomaly data, without domain expertise from
 the operator, and without cloud GPU resources. Three design choices proved
 critical for output quality: pre-computing all derived figures in the energy
