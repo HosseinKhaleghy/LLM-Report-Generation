@@ -20,14 +20,12 @@
 
 \titlerunning{Multi-Agent Dairy Farm Energy Advisor}
 
-\author{%
-  \and
-}
+\author{Author Name\inst{1}}
 
-\authorrunning{}
+\authorrunning{A. Author}
 
-\institute{%
-}
+\institute{Institution, City, Country\\
+\email{author@example.org}}
 
 \maketitle
 
@@ -45,8 +43,8 @@ The demonstration shows the full pipeline through an interactive web
 application: the operator uploads a CSV file and receives, progressively, a
 herd-size estimate, an annotated energy dashboard, an anomaly timeline, and a
 farm-specific advisory report. An automated LLM-as-judge evaluation across
-five real Irish dairy farms found the generated reports factually grounded,
-with every cited figure traceable to the precomputed analytical data.
+five real dairy farms found the generated reports factually grounded, with
+every cited figure traceable to the precomputed analytical data.
 \end{abstract}
 
 \keywords{Multi-agent systems \and Energy efficiency \and Dairy farming \and
@@ -116,7 +114,7 @@ replaceable.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.90\textwidth]{fig1.pdf}
-  \caption{Coordinator-delegated multi-agent pipeline. Six specialist agents fire autonomously and write to a shared JSON report; the RAG agent grounds the narrative in a curated knowledge base..}
+  \caption{Coordinator-delegated multi-agent pipeline. Six specialist agents fire autonomously and write to a shared JSON report; the RAG agent grounds the narrative in a curated knowledge base.}
   \label{fig:arch}
 \end{figure}
 
@@ -169,7 +167,7 @@ The demonstration runs through an interactive Streamlit web
 application.\footnote{Source code and cached demonstration data:
 \url{https://github.com/HosseinKhaleghy/LLM-Report-Generation}}
 A real hourly electricity CSV file can be uploaded, or a preloaded dataset
-representing a real Irish dairy farm~\cite{DairyDataset} can be used instead. The coordinator
+representing a real dairy farm~\cite{dairydataset} can be used instead. The coordinator
 initiates the pipeline immediately, and each agent's output becomes
 inspectable across tabs as it arrives, with the advisory report available
 for download on completion. The goal is to show how a multi-agent system decomposes
@@ -221,11 +219,11 @@ high-consumption and 27 as low-consumption events.
 
 An automated LLM-as-judge protocol was applied to reports generated for five
 real dairy farms (farms 2, 4, 5, 6, and 7 from the
-dataset~\cite{DairyDataset}). Each of the eight report sections was scored
+dataset~\cite{dairydataset}). Each of the eight report sections was scored
 on three dimensions: factual grounding (D1, whether every cited figure is
 traceable to the farm data), benchmark integrity (D2, whether all cited
 thresholds are attributable to the knowledge base), and physical soundness
-(D3, whether causal reasoning matches Irish dairy farm reality). To control
+(D3, whether causal reasoning matches European dairy farm reality). To control
 for the self-evaluation bias inherent in using the same model as both
 generator and judge, two independent judges were applied. A locally deployed
 qwen2.5:14b, drawn from the same family as the narrative generator, returned
@@ -311,10 +309,8 @@ vol.~33, pp.~5776--5788 (2020)
 Yang, A., Yang, B., Zhang, B., et al.: Qwen2.5 technical report.
 arXiv preprint arXiv:2412.15115 (2024)
 
-\bibitem{DairyDataset}
-Dairy farm electricity consumption dataset [Dataset]. University of
-Strathclyde KnowledgeBase (2024).
-\url{https://doi.org/10.15129/1211ae7c-9b70-4a39-b3ce-318d81583749}
+\bibitem{dairydataset}
+Vavouris, A., Stankovic, L., Stankovic, V. and Shi, J., 2025. FIELD: a comprehensive FarmIng Electrical LoaD measurements dataset from 30 three-phase dairy farms in Germany. Scientific Data, 12(1), p.1830.
 
 \end{thebibliography}
 
