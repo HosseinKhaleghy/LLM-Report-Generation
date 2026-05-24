@@ -225,7 +225,4 @@ models/              herd_model.joblib, fleet_stats.json (generated)
 reports/             Generated JSON reports
 ```
 
-## Notes and limitations
 
-- **Herd size on real data:** the model is trained on synthetic farms (20 to 90 cows). A real farm larger than that is outside the trained range; the system detects this, switches to the linear extrapolation, and flags the estimate as *indicative only*. For accurate large farm estimates, regenerate the synthetic training data spanning the real farms' size range.
-- **Anomaly detection** runs on real data unchanged; the rate reflects genuine irregularities in the recording, not injected faults.
